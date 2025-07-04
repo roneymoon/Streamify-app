@@ -1,70 +1,90 @@
 import React from "react";
 import useAuthUser from "../hooks/useAuthUser";
 import { useLocation } from "react-router";
-import { Glasses, HomeIcon, UsersIcon, BellIcon } from "lucide-react";
+import {
+  Glasses,
+  HomeIcon,
+  UsersIcon,
+  BellIcon,
+  PanelLeftClose,
+} from "lucide-react";
 import { Link } from "react-router";
 
-const Sidebar = () => {
-  const {authUser} = useAuthUser();
+const Sidebar = ({ isOpen, setIsOpen }) => {
+  const { authUser } = useAuthUser();
   const location = useLocation();
 
-  console.log(location.pathname);
   return (
-    <aside className="w-64 bg-base-200 border-r border-base-300 hidden lg:flex flex-col h-screen sticky top-0">
-      <div className="p-5 border-b border-base-300">
-        <Link to="/" className="flex items-center gap-2.5">
-          <Glasses className="size-9 text-primary" />
-          <span className="text-3xl font-bold font-mono bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary  tracking-wider">
+    <aside
+      className={`fixed top-0 left-0 z-50 w-86 h-full bg-base-200 transform transition-transform duration-300 ease-in-out shadow-lg ${
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      }`}
+    >
+      {/* Logo + Close */}
+      <div className="px-6 py-5 border-b border-base-300 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-3">
+          <Glasses className="w-11 h-11 text-primary" />
+          <span className="text-4xl font-bold font-mono bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary tracking-wide">
             Streamify
           </span>
         </Link>
+        <button
+          onClick={() => setIsOpen(false)}
+          className="p-2 pl-6 pr-4 text-base-content opacity-70 hover:opacity-100 transition-transform hover:scale-110 hover:rotate-[-10deg]"
+          aria-label="Close sidebar"
+          data-tip="Close Sidebar"
+        >
+          <PanelLeftClose className="w-7 h-7 text-primary" />
+        </button>
       </div>
 
-      <nav className="flex-1 p-4 space-y-1">
+      {/* Nav Links */}
+      <nav className="flex-1 px-6 py-5 space-y-3 text-lg">
         <Link
           to="/"
-          className={`btn btn-ghost justify-start w-full gap-3 px-3 normal-case hover:bg-base-100 transition-all ${
-            location.pathname == "/" ? "btn-active bg-base-100" : ""
+          className={`btn btn-ghost justify-start w-full gap-4 px-5 py-4 rounded-xl text-xl hover:bg-base-100 transition ${
+            location.pathname === "/" ? "btn-active bg-base-100" : ""
           }`}
         >
-          <HomeIcon className="size-5 text-base-content opacity-70" />
+          <HomeIcon className="w-7 h-7 text-base-content opacity-80" />
           <span>Home</span>
         </Link>
 
         <Link
-          to="/"
-          className={`btn btn-ghost justify-start w-full gap-3 px-3 normal-case hover:bg-base-100 transition-all ${
-            location.pathname == "/friends" ? "btn-active bg-base-100" : ""
+          to="/friends"
+          className={`btn btn-ghost justify-start w-full gap-4 px-5 py-4 rounded-xl text-xl hover:bg-base-100 transition ${
+            location.pathname === "/friends" ? "btn-active bg-base-100" : ""
           }`}
         >
-          <UsersIcon className="size-5 text-base-content opacity-70" />
+          <UsersIcon className="w-7 h-7 text-base-content opacity-80" />
           <span>Friends</span>
         </Link>
 
         <Link
           to="/notifications"
-          className={`btn btn-ghost justify-start w-full gap-3 hover:bg-base-100 transition-all px-3 normal-case ${
+          className={`btn btn-ghost justify-start w-full gap-4 px-5 py-4 rounded-xl text-xl hover:bg-base-100 transition ${
             location.pathname === "/notifications"
               ? "btn-active bg-base-100"
               : ""
           }`}
         >
-          <BellIcon className="size-5 text-base-content opacity-70" />
+          <BellIcon className="w-7 h-7 text-base-content opacity-80" />
           <span>Notifications</span>
         </Link>
       </nav>
-      {/* USER PROFILE SECTION */}
-      <div className="p-4 border-t border-base-300 mt-auto">
-        <div className="flex items-center gap-3">
+
+      {/* Footer Profile */}
+      <div className="px-6 py-5 border-t border-base-300">
+        <div className="flex items-center gap-4">
           <div className="avatar">
-            <div className="w-10 rounded-full">
+            <div className="w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
               <img src={authUser?.profilePic} alt="User Avatar" />
             </div>
-          </div>  
+          </div>
           <div className="flex-1">
-            <p className="font-semibold text-sm">{authUser?.fullName}</p>
-            <p className="text-xs text-success flex items-center gap-1">
-              <span className="size-2 rounded-full bg-success inline-block" />
+            <p className="font-semibold text-lg">{authUser?.fullName}</p>
+            <p className="text-sm text-success flex items-center gap-1 mt-1">
+              <span className="w-2 h-2 rounded-full bg-success inline-block" />
               Online
             </p>
           </div>

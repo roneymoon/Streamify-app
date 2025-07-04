@@ -17,7 +17,17 @@ import NoFriendsFound from "../components/NoFriendsFound";
 import FriendCard from "../components/FriendCard";
 import { getLanguageFlag } from "../components/FriendCard";
 import { MapPinIcon } from "lucide-react";
-import { capitialize } from "../lib/utils"
+import { capitialize } from "../lib/utils";
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+
+// Optional modules
+import { Navigation, Pagination } from "swiper/modules";
 
 const HomePage = () => {
   const queryClient = useQueryClient();
@@ -77,11 +87,25 @@ const HomePage = () => {
         ) : friends.length == 0 ? (
           <NoFriendsFound />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <Swiper
+            modules={[Pagination]}
+            spaceBetween={10}
+            slidesPerView={1.2}
+            navigation
+            pagination={{ clickable: true }}
+            breakpoints={{
+              640: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+              1280: { slidesPerView: 4 },
+            }}
+            className="my-4 !pb-10"
+          >
             {friends.map((friend) => (
-              <FriendCard friend={friend} key={friend._id} />
+              <SwiperSlide key={friend._id}>
+                <FriendCard friend={friend} />
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
         )}
 
         <section>
@@ -200,4 +224,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-
