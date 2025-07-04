@@ -5,12 +5,12 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import NotificationsPage from "./pages/NotificationsPage";
 import CallPage from "./pages/CallPage";
-import ChatPage from "./pages/ChatPage";
 import OnBoardingPage from "./pages/OnBoardingPage";
 import PageLoader from "./components/PageLoader";
 import useAuthUser from "./hooks/useAuthUser";
 import Layout from "./components/Layout";
 import { useThemeStore } from "./store/useThemeStore";
+import ChatWidget from "./components/widgets/ChatWidget";
 
 // debugging UI page
 
@@ -81,7 +81,7 @@ const App = () => {
             <Navigate to={!isAuthenticated ? "/login" : "/onboarding"}/>
           )}
         />
-        <Route
+        {/* <Route
           path="/chat/:id"
           element={
             isAuthenticated && isOnBoarded ? (
@@ -92,7 +92,7 @@ const App = () => {
               <Navigate to={!isAuthenticated ? "/login" : "onboarding"}/>
             )
           }
-        />
+        /> */}
         <Route
           path="/onboarding"
           element={
@@ -109,6 +109,7 @@ const App = () => {
         />
 
       </Routes>
+      <ChatWidget/>
     </div>
   );
 };

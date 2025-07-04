@@ -1,8 +1,10 @@
 import React from "react";
 import { LANGUAGE_TO_FLAG } from "../constants";
 import { Link } from "react-router-dom"; // make sure you import this
+import { useChatContext } from "../contexts/ChatWidgetContext";
 
 const FriendCard = ({ friend }) => {
+  const {openChat} = useChatContext();
   return (
     <div className="card bg-base-200 rounded-xl hover:shadow-lg transition-all duration-200 hover:scale-[1.01]">
       <div className="card-body p-5">
@@ -30,7 +32,7 @@ const FriendCard = ({ friend }) => {
 
         {/* MESSAGE BUTTON */}
         <Link
-          to={`/chat/${friend._id}`}
+          onClick={() => openChat(friend)}
           className="btn btn-outline w-full hover:shadow-sm transition-all duration-150"
         >
           Message
