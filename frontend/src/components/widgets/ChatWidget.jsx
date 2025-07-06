@@ -5,14 +5,15 @@ import useAuthUser from "../../hooks/useAuthUser";
 import { getStreamToken } from "../../lib/api";
 import {
   Channel,
+  ChannelList,
   ChannelHeader,
   Chat,
   MessageInput,
   MessageList,
   StreamEmoji,
   Thread,
-  Window
-} from "stream-chat-react"
+  Window,
+} from "stream-chat-react";
 
 import { StreamChat } from "stream-chat";
 import toast from "react-hot-toast";
@@ -20,13 +21,14 @@ import ChatLoader from "../ChatLoader";
 import CallButton from "../CallButton";
 
 import { useThemeStore } from "../../store/useThemeStore";
+import { lighterThemes, darkerThemes } from "../../constants";
 
 const STREAM_API_KEY = import.meta.env.VITE_STREAM_API_KEY;
 
 export default function ChatWidget() {
   const { isChatOpen, selectedUser, closeChat } = useChatContext();
 
-  const {theme} = useThemeStore();
+  const { theme } = useThemeStore();
 
   const [chatClient, setChatClient] = useState(null);
   const [channel, setChannel] = useState(null);
@@ -40,6 +42,7 @@ export default function ChatWidget() {
     queryFn: getStreamToken,
     enabled: !!authUser,
   });
+  console.log(theme);
 
   useEffect(() => {
     const initChat = async () => {
@@ -120,28 +123,59 @@ export default function ChatWidget() {
   if (loading || !chatClient || !channel || !shouldRender)
     return <ChatLoader />;
 
-  return (
-    <div className="fixed bottom-4 right-4 w-[350px] h-[500px] shadow-lg border rounded-xl bg-white z-50">
-      <Chat client={chatClient}>
-        <Channel channel={channel}>
-          <div className="w-full relative">
-            <Window>
-              <CallButton handleVideoCall={handleVideoCall} />
-              <ChannelHeader />
-              <MessageList />
-              <MessageInput focus />
+  console.log(selectedUser);
+  console.log(selectedUser._id);
 
+  return (
+    <div className="fixed bottom-1 right-4 w-[350px] h-[500px] shadow-lg border-none outline-none overflow-hidden z-50 rounded-xl bg-transparent">
+      <div className="h-full">
+        <Chat
+          client={chatClient}
+          theme={
+            lighterThemes.includes(theme)
+              ? "str-chat__theme-light"
+              : "str-chat__theme-dark"
+          }
+        >
+          {channel && (
+            <Channel channel={channel}>
+              <Window>
+                <ChannelHeader />
+                <MessageList />
+                <MessageInput />
+              </Window>
               <Thread />
-            </Window>
-          </div>
-        </Channel>
-      </Chat>
-      <button
-        onClick={handleClose}
-        className="absolute top-2 right-2 text-gray-600"
-      >
-        ✕
-      </button>
+            </Channel>
+          )}
+        </Chat>
+        <div className="absolute top-2 right-2 flex gap-2">
+          {/* Call Button */}
+          <button
+            onClick={handleVideoCall}
+            className="w-9 h-9 flex items-center justify-center rounded-full shadow-md 
+            bg-base-200 text-base-content 
+            hover:bg-base-300 hover:scale-105 active:scale-95 
+            transition-all duration-200 ease-in-out 
+            focus:outline-none"
+            title="Start Call"
+          >
+            📞
+          </button>
+
+          {/* Close Button */}
+          <button
+            onClick={handleClose}
+            className="w-9 h-9 flex items-center justify-center rounded-full shadow-md 
+            bg-base-200 text-base-content 
+            hover:bg-red-400 hover:text-white hover:scale-105 
+            active:scale-95 transition-all duration-200 ease-in-out 
+            focus:outline-none"
+            title="Close Chat"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

@@ -162,6 +162,45 @@ export const THEMES = [
   },
 ];
 
+export const lighterThemes = [
+  "light",
+  "cupcake",
+  "bumblebee",
+  "emerald",
+  "corporate",
+  "retro",
+  "valentine",
+  "garden",
+  "pastel",
+  "fantasy",
+  "wireframe",
+  "cmyk",
+  "autumn",
+  "business",
+  "lemonade",
+  "winter",
+  "nord"
+]
+
+export const darkerThemes = [
+  "dark",
+  "forest",
+  "synthwave",
+  "cyberpunk",
+  "halloween",
+  "aqua",
+  "lofi",
+  "black",
+  "luxury",
+  "dracula",
+  "acid",
+  "night",
+  "coffee",
+  "dim",
+  "sunset"
+]
+
+
 export const LANGUAGES = [
   "English",
   "Spanish",

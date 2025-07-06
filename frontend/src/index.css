@@ -1,6 +1,60 @@
+@import "stream-chat-react/dist/css/v2/index.css";
 @import "tailwindcss";
 @plugin "daisyui" {
   themes: all;
 }
 
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 
+
+.str-chat__channel-list {
+  position: fixed;
+  z-index: 1;
+  height: 100%;
+  width: 0;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+  transition: width 0.3s ease-out;
+}
+
+.str-chat__channel-list--open {
+  width: 30%;
+  position: fixed;
+}
+
+
+.str-chat {
+  border: none;
+}
+
+.str-chat__channel-header {
+  padding-top: 10px;
+  padding-left: 15px;
+}
+
+.str-chat,
+.str-chat__channel,
+.str-chat__window {
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  background-color: white !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.str-chat__list-notifications{
+  display: none;
+}
+
+.str-chat__theme-dark .str-chat__list, .str-chat__empty-channel {
+  background-color: #181414;  
+}
+
+.str-chat__theme-light .str-chat__list {
+  background-color: #ffffff; 
+}
