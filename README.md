@@ -33,7 +33,11 @@
 
 ## 📸 Screenshots
 
-> Add screenshots/gifs of your chat window, call screen, and matching UI here for better context.
+![Screenshot 2025-07-07 010902](https://github.com/user-attachments/assets/75ec44e4-95da-4f46-aa79-deb7a2267fa7)
+
+![Screenshot 2025-07-07 011138](https://github.com/user-attachments/assets/7249f7d3-b689-43fa-a0ac-e5cd75a469ef)
+
+
 
 ---
 
