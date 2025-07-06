@@ -12,6 +12,7 @@ const UserCard = ({ user, hasRequestBeenSent, isPending, onSendRequest }) => {
           <div className="avatar">
             <div className="size-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 overflow-hidden">
               <img src={user.profilePic} alt={user.fullName} />
+            </div>
           </div>
           <div>
             <h3 className="font-semibold text-lg">{user.fullName}</h3>
