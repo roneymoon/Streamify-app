@@ -89,3 +89,15 @@ export const getStreamToken = async () => {
   })
   return response.data
 }
+
+export const createPost = async (newPost) => {
+  try {
+    const response = await axiosInstance.post('/posts', newPost, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error creating post:", error);
+    throw error;
+  }
+};

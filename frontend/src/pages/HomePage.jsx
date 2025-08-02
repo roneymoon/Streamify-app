@@ -18,7 +18,8 @@ import FriendCard from "../components/FriendCard";
 import UserCard from "../components/UserCard";
 import { getLanguageFlag } from "../components/FriendCard";
 import { MapPinIcon } from "lucide-react";
-import { capitialize } from "../lib/utils";
+import { capitalize } from "../lib/utils";
+import { FlipWords } from "../components/ui/FlipWords";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -29,6 +30,7 @@ import "swiper/css/pagination";
 
 // Optional modules
 import { Navigation, Pagination } from "swiper/modules";
+import ExpandableCreatePost from "../components/post/ExpandableCreatePost";
 
 const HomePage = () => {
   const queryClient = useQueryClient();
@@ -75,7 +77,10 @@ const HomePage = () => {
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
             Your Friends
           </h2>
-          <Link to="/notifications" className="btn btn-outline btn-sm">
+          <Link
+            to="/notifications"
+            className="btn btn-outline btn-sm mr-[4rem]"
+          >
             <UsersIcon className="mr-2 size-4" />
             Friend Requests
           </Link>
@@ -108,6 +113,21 @@ const HomePage = () => {
             ))}
           </Swiper>
         )}
+
+        <div className="flex flex-row justify-between">
+          {/* Flipping words Title */}
+          <div className="flex text-white mt-5">
+            <h1 className="text-4xl font-bold">
+              <span className="text-accent">Streamify let's you</span>{" "}
+              <FlipWords
+                words={["connect", "stream", "learn", "explore"]}
+                className="text-primary"
+              />
+            </h1>
+          </div>
+
+          <ExpandableCreatePost />
+        </div>
 
         <section>
           <div className="mb-6 sm:mb-8">
@@ -150,7 +170,6 @@ const HomePage = () => {
                 1280: { slidesPerView: 3 },
               }}
               className="my-4 !pb-10"
-              
             >
               {recommendedUsers.map((user) => {
                 const hasRequestBeenSent = outgoingRequestsIDs.has(user._id);
