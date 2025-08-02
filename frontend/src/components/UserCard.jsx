@@ -1,7 +1,7 @@
 import React from "react";
 import { CheckCircleIcon, UserPlusIcon, MapPinIcon } from "lucide-react";
 import { getLanguageFlag } from "./FriendCard";
-import { capitialize } from "../lib/utils";
+import { capitalize } from "../lib/utils";
 
 const UserCard = ({ user, hasRequestBeenSent, isPending, onSendRequest }) => {
   return (
@@ -29,11 +29,11 @@ const UserCard = ({ user, hasRequestBeenSent, isPending, onSendRequest }) => {
         <div className="flex flex-wrap gap-2">
           <span className="badge badge-secondary text-xs flex items-center gap-1">
             {getLanguageFlag(user.nativeLanguage)}
-            <span>Native: {capitialize(user.nativeLanguage)}</span>
+            <span>Native: {capitalize(user.nativeLanguage)}</span>
           </span>
           <span className="badge badge-outline text-xs flex items-center gap-1">
             {getLanguageFlag(user.learningLanguage)}
-            <span>Learning: {capitialize(user.learningLanguage)}</span>
+            <span>Learning: {capitalize(user.learningLanguage)}</span>
           </span>
         </div>
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
@@ -8,13 +8,15 @@ import CallPage from "./pages/CallPage";
 import OnBoardingPage from "./pages/OnBoardingPage";
 import PageLoader from "./components/PageLoader";
 import useAuthUser from "./hooks/useAuthUser";
-import Layout from "./components/Layout";
+import Layout from "./components/layout/Layout";
 import { useThemeStore } from "./store/useThemeStore";
 import ChatWidget from "./components/widgets/ChatWidget";
 
 // debugging UI page
 
 const App = () => {
+
+
   const { isLoading, authUser } = useAuthUser();
 
   const isAuthenticated = Boolean(authUser);
@@ -25,7 +27,8 @@ const App = () => {
   if (isLoading) return <PageLoader />;
 
   return (
-    <div className="h-screen" data-theme={theme}>
+    <div className="h-screen w-full overflow-x-hidden" data-theme={theme}>
+
       <Routes>
         <Route
           path="/"
@@ -73,13 +76,15 @@ const App = () => {
         />
         <Route
           path="/call/:id"
-          element={isAuthenticated && isOnBoarded ? (
-            <Layout>
-              <CallPage/>
-            </Layout>
-          ) : (
-            <Navigate to={!isAuthenticated ? "/login" : "/onboarding"}/>
-          )}
+          element={
+            isAuthenticated && isOnBoarded ? (
+              <Layout>
+                <CallPage />
+              </Layout>
+            ) : (
+              <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
+            )
+          }
         />
         {/* <Route
           path="/chat/:id"
@@ -107,9 +112,8 @@ const App = () => {
             )
           }
         />
-
       </Routes>
-      <ChatWidget/>
+      <ChatWidget />
     </div>
   );
 };
